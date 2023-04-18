@@ -298,7 +298,8 @@ public class ReservasView extends JFrame {
 		txtFormaPago.setBackground(SystemColor.text);
 		txtFormaPago.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
 		txtFormaPago.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtFormaPago.setModel(new DefaultComboBoxModel(new String[] {"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
+		txtFormaPago.setModel(new DefaultComboBoxModel(new String[] 
+				{"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
 		panel.add(txtFormaPago);
 
 		JPanel btnsiguiente = new JPanel();
@@ -311,7 +312,7 @@ public class ReservasView extends JFrame {
 							ReservasView.txtFechaSalida.getDate(),
 							Double.parseDouble(txtValor.getText().split(" ")[0]), typePayment);
 					reservaController.guardar(reserva, 1);
-					RegistroHuesped registro = new RegistroHuesped(reserva.getId()); 
+					RegistroHuesped registro = new RegistroHuesped(reserva); 
 					registro.setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");

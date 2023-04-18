@@ -9,6 +9,9 @@ public class Reserva {
 	private double valorReserva;
 	private TypePayment methodPayment; 
 	
+	public Reserva (Integer id) {
+		this.id = id;
+	}
 	
 	public Reserva(Date checkIn, Date checkOut, double valorReserva,  TypePayment methodPayment) {
 		this.checkIn = checkIn;

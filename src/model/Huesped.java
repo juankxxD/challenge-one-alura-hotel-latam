@@ -1,19 +1,19 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Huesped {
-	  private Integer id;
+	  private int id;
 	  private String nombre;
 	  private String apellido;
-	  private LocalDate fechaNacimiento;
+	  private Date fechaNacimiento;
 	  private String nacionalidad;
 	  private String telefono;
 	  private Reserva reserva;
 	  
-	public Huesped(Integer id, String nombre, String apellido, LocalDate fechaNacimiento, String nacionalidad,
+	public Huesped(String nombre, String apellido, Date fechaNacimiento, String nacionalidad,
 			String telefono, Reserva reserva) {
-		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.fechaNacimiento = fechaNacimiento;
@@ -22,11 +22,11 @@ public class Huesped {
 		this.reserva = reserva;
 	}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -46,11 +46,11 @@ public class Huesped {
 		this.apellido = apellido;
 	}
 
-	public LocalDate getFechaNacimiento() {
+	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
