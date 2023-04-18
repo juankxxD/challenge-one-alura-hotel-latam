@@ -1,6 +1,5 @@
-/views/
-/connection/
+/dao/
 /factory/
-/PruebaConexion.class
 /model/
-/prueba.class
+/views/
+/controller/

@@ -10,7 +10,13 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JTextField;
+
 import com.toedter.calendar.JDateChooser;
+
+import controller.ReservaController;
+import model.Reserva;
+import model.TypePayment;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -37,7 +43,8 @@ public class ReservasView extends JFrame {
 	int xMouse, yMouse;
 	private JLabel labelExit;
 	private JLabel labelAtras;
-
+	private ReservaController reservaController;
+	private final double VALORDIA = 3000; 
 	/**
 	 * Launch the application.
 	 */
@@ -59,6 +66,7 @@ public class ReservasView extends JFrame {
 	 */
 	public ReservasView() {
 		super("Reserva");
+		this.reservaController = new ReservaController();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 560);
@@ -265,6 +273,7 @@ public class ReservasView extends JFrame {
 		txtFechaSalida.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				//Activa el evento, después del usuario seleccionar las fechas se debe calcular el valor de la reserva
+				calculatedTotal();
 			}
 		});
 		txtFechaSalida.setDateFormatString("yyyy-MM-dd");
@@ -274,9 +283,9 @@ public class ReservasView extends JFrame {
 
 		txtValor = new JTextField();
 		txtValor.setBackground(SystemColor.text);
-		txtValor.setHorizontalAlignment(SwingConstants.CENTER);
+		txtValor.setHorizontalAlignment(SwingConstants.LEFT);
 		txtValor.setForeground(Color.BLACK);
-		txtValor.setBounds(78, 328, 43, 33);
+		txtValor.setBounds(78, 328, 120, 33);
 		txtValor.setEditable(false);
 		txtValor.setFont(new Font("Roboto Black", Font.BOLD, 17));
 		txtValor.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -296,8 +305,13 @@ public class ReservasView extends JFrame {
 		btnsiguiente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {		
-					RegistroHuesped registro = new RegistroHuesped();
+				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {	
+					TypePayment typePayment = new TypePayment(txtFormaPago.getSelectedIndex(), txtFormaPago.getSelectedItem().toString());
+					Reserva reserva = new Reserva(ReservasView.txtFechaEntrada.getDate(), 
+							ReservasView.txtFechaSalida.getDate(),
+							Double.parseDouble(txtValor.getText().split(" ")[0]), typePayment);
+					reservaController.guardar(reserva, 1);
+					RegistroHuesped registro = new RegistroHuesped(reserva.getId()); 
 					registro.setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
@@ -324,4 +338,14 @@ public class ReservasView extends JFrame {
 	        int y = evt.getYOnScreen();
 	        this.setLocation(x - xMouse, y - yMouse);
 }
+	    
+	    private void calculatedTotal() {
+	    	if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {
+	    		int from = Integer.parseInt(ReservasView.txtFechaEntrada.getDate().toString().split(" ")[2]);
+	    		int to = Integer.parseInt(ReservasView.txtFechaSalida.getDate().toString().split(" ")[2]);
+	    		double totalDias = (to - from + 1) * VALORDIA;
+	    		ReservasView.txtValor.setText(totalDias + " COP");
+	    		System.out.println(totalDias);
+	    	}
+	    }
 }

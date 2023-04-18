@@ -1,25 +1,33 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Reserva {
-	private LocalDate checkIn;
-	private LocalDate checkOut;
+	private Integer id;
+	private Date checkIn;
+	private Date checkOut;
 	private double valorReserva;
 	private TypePayment methodPayment; 
 	
 	
-	public Reserva(LocalDate checkIn, LocalDate checkOut, double valorReserva,  TypePayment methodPayment) {
+	public Reserva(Date checkIn, Date checkOut, double valorReserva,  TypePayment methodPayment) {
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
 		this.valorReserva = valorReserva;
 		this.methodPayment = methodPayment;
 	}
-	public LocalDate getCheckIn() {
+	
+	 @Override
+	    public String toString() {
+	        return "id: " + this.id + ", entrada: " + this.checkIn +  ", salida: " + this.checkOut + ""
+	        		+ ", valor: "+ this.valorReserva;
+	    }
+	
+	public Date getCheckIn() {
 		return checkIn;
 	}
 	
-	public LocalDate getCheckOut() {
+	public Date getCheckOut() {
 		return checkOut;
 	}
 	
@@ -32,10 +40,10 @@ public class Reserva {
 	}
 	
 	
-	public void setCheckIn(LocalDate checkIn) {
+	public void setCheckIn(Date checkIn) {
 		this.checkIn = checkIn;
 	}
-	public void setCheckOut(LocalDate checkOut) {
+	public void setCheckOut(Date checkOut) {
 		this.checkOut = checkOut;
 	}
 	public void setValorReserva(double valorReserva) {
@@ -44,6 +52,12 @@ public class Reserva {
 	
 	public void setTypePayment(TypePayment methodPayment) {
 		this.methodPayment = methodPayment;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	};
 	
 	
