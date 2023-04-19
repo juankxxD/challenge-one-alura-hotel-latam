@@ -23,4 +23,7 @@ public class ReservaController {
 		reservaDao.guardar(reserva);
     }
 
+	public List<Reserva> getReserva(String idReserva) {
+		return reservaDao.getReserva(Integer.parseInt(idReserva));
+	}
 }

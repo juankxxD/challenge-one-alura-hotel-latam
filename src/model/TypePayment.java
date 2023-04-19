@@ -16,6 +16,11 @@ public class TypePayment {
 	public TypePayment(Integer id) {
 		this.id = id;
 	}
+	
+	@Override
+    public String toString() {
+        return "id: " + this.id + ", nombre: " + this.nombre;
+    }
 
 	public Integer getId() {
 		return id;

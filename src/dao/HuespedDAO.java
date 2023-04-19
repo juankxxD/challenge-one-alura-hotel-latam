@@ -83,5 +83,51 @@ public class HuespedDAO {
 			
 			return huespedes;
 		 }
+		 
+		 public List<Huesped> getHuespedByCondition(String condition) {
+			 List<Huesped> huespedes = new ArrayList<>();
+			 try {
+				 System.out.println(condition);
+				 final PreparedStatement statement = con
+		                    .prepareStatement("SELECT H.ID, H.nombre, H.apellido, H.fechaNacimiento, H.nacionalidad, H.telefono, H.idReserva, "
+		                    		+ " R.fechaEntrada, R.fechaSalida, R.valor, R.formaPago FROM HUESPEDES H INNER JOIN RESERVAS R "
+		                    		+ "ON H.idReserva = R.ID WHERE H.apellido = ? OR R.ID = ?");
+				 	
+		            try (statement) {
+		            	statement.setString(1, condition);
+		            	statement.setString(2, condition);
+		            	
+		                statement.execute();
+		                
+		                final ResultSet resultSet = statement.getResultSet();
+		    
+		                try (resultSet) {
+		                	
+		                	 while (resultSet.next()) {
+		                		 huespedes.add(new Huesped(
+			                    			resultSet.getInt("ID"),
+			                    			resultSet.getString("nombre"),
+			                    			resultSet.getString("apellido"),
+			                    			resultSet.getDate("fechaNacimiento"),
+			                    			resultSet.getString("nacionalidad"),
+			                    			resultSet.getString("telefono"),
+			                    			new Reserva(
+			                    					resultSet.getInt("idReserva"),
+			                    					resultSet.getDate("fechaEntrada"),
+			            	                    	resultSet.getDate("fechaSalida"),
+			            	                    	resultSet.getDouble("valor"),
+			            	                    	new TypePayment(
+			            	                    			resultSet.getString("formaPago"))
+			                    					)
+			                    			));
+			                    }
+		                }
+		            }
+			 } catch (Exception e) {
+				 e.printStackTrace();
+			}
+			
+			return huespedes;
+		 }
 
 }

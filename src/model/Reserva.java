@@ -28,10 +28,14 @@ public class Reserva {
 		this.methodPayment = methodPayment;
 	}
 	
-	 @Override
+	 public Reserva() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
 	    public String toString() {
 	        return "id: " + this.id + ", entrada: " + this.checkIn +  ", salida: " + this.checkOut + ""
-	        		+ ", valor: "+ this.valorReserva;
+	        		+ ", valor: "+ this.valorReserva + ", metodo de pago: " + methodPayment;
 	    }
 	
 	public Date getCheckIn() {
@@ -69,7 +73,9 @@ public class Reserva {
 	}
 	public void setId(Integer id) {
 		this.id = id;
-	};
+	}
+
+
 	
 	
 	

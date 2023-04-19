@@ -21,4 +21,8 @@ private HuespedDAO huespedDao;
 	public List<Huesped> listarHuesped() {
 		return huespedDao.getHuespeds();
 	}
+	
+	public List<Huesped> listarHuespedByCondition(String condition) {
+		return huespedDao.getHuespedByCondition(condition);
+	}
 }

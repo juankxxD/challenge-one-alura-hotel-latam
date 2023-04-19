@@ -32,6 +32,13 @@ public class Huesped {
 		this.reserva = reserva;
 	}
 
+	@Override
+    public String toString() {
+        return "id: " + this.id + ", nombre: " + this.nombre +  ", apellido: " + this.apellido + ""
+        		+ ", fechaNacimiento: "+ this.fechaNacimiento + ", nacionalidad: "+ this.nacionalidad
+        		+ ", telefono: "+ this.telefono + ", reserva: "+ this.reserva;
+    }
+	
 	public int getId() {
 		return id;
 	}
