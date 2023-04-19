@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import dao.HuespedDAO;
 import factory.ConnectionFactory;
 import model.Huesped;
@@ -15,4 +17,8 @@ private HuespedDAO huespedDao;
 	public void guardar(Huesped huesped) {
 		huespedDao.guardar(huesped);
     }
+	
+	public List<Huesped> listarHuesped() {
+		return huespedDao.getHuespeds();
+	}
 }

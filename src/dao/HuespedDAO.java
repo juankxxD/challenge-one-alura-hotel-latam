@@ -6,8 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Huesped;
+import model.Reserva;
+import model.TypePayment;
 
 public class HuespedDAO {
 		
@@ -47,5 +51,37 @@ public class HuespedDAO {
 		            throw new RuntimeException(e);
 		        }
 		    }
+		 
+		 public List<Huesped> getHuespeds() {
+			 List<Huesped> huespedes = new ArrayList<>();
+			 try {
+				 final PreparedStatement statement = con
+		                    .prepareStatement("SELECT ID, nombre, apellido, fechaNacimiento, nacionalidad, telefono, idReserva FROM HUESPEDES");
+				 
+		            try (statement) {
+		                statement.execute();
+
+		                final ResultSet resultSet = statement.getResultSet();
+		    
+		                try (resultSet) {
+		                	 while (resultSet.next()) {
+		                		 huespedes.add(new Huesped(
+			                    			resultSet.getInt("ID"),
+			                    			resultSet.getString("nombre"),
+			                    			resultSet.getString("apellido"),
+			                    			resultSet.getDate("fechaNacimiento"),
+			                    			resultSet.getString("nacionalidad"),
+			                    			resultSet.getString("telefono"),
+			                    			new Reserva(resultSet.getInt("idReserva"))
+			                    			));
+			                    }
+		                }
+		            }
+			 } catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			return huespedes;
+		 }
 
 }

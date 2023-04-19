@@ -20,6 +20,14 @@ public class Reserva {
 		this.methodPayment = methodPayment;
 	}
 	
+	public Reserva(Integer id, Date checkIn, Date checkOut, double valorReserva,  TypePayment methodPayment) {
+		this.id = id;
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;
+		this.valorReserva = valorReserva;
+		this.methodPayment = methodPayment;
+	}
+	
 	 @Override
 	    public String toString() {
 	        return "id: " + this.id + ", entrada: " + this.checkIn +  ", salida: " + this.checkOut + ""

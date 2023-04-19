@@ -9,6 +9,13 @@ public class TypePayment {
 		this.id = id;
 		this.nombre = nombre;
 	}
+	
+	public TypePayment(String nombre) {
+		this.nombre = nombre;
+	}
+	public TypePayment(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;
