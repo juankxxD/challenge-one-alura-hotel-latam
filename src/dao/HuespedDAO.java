@@ -129,5 +129,75 @@ public class HuespedDAO {
 			
 			return huespedes;
 		 }
+		 
+		 public int delete(int id) {
+		 try {
+			 final PreparedStatement statement = con
+	                    .prepareStatement("DELETE FROM HUESPEDES WHERE ID = ?");
+	    
+	            try (statement) {
+	            	statement.setInt(1, id);
+	                statement.execute();
+	                
+	                int updateCount = statement.getUpdateCount();
+
+	                return updateCount;
+	               
+	            }
+		 } catch (SQLException e) {
+			 throw new RuntimeException(e);
+		}
+		 }
+
+		public int deleteByReserva(int idReserva) {
+			try {
+				 final PreparedStatement statement = con
+		                    .prepareStatement("DELETE FROM HUESPEDES WHERE idReserva = ?");
+		    
+		            try (statement) {
+		            	statement.setInt(1, idReserva);
+		                statement.execute();
+		                
+		                int updateCount = statement.getUpdateCount();
+
+		                return updateCount;
+		               
+		            }
+			 } catch (SQLException e) {
+				 throw new RuntimeException(e);
+			}
+		}
+
+		public int update(Integer id, String nombre, String apellido, java.util.Date fechaNacimiento,
+				String nacionalidad, String telefono) {
+			
+			try {
+	            final PreparedStatement statement = con
+	                    .prepareStatement("UPDATE HUESPEDES SET "
+	                    		+ "nombre = ?, "
+	                    		+ "apellido = ?, "
+	                    		+ "fechaNacimiento = ?, "
+	                    		+ "nacionalidad = ?, "
+	                    		+ "telefono = ? "
+	                    		+ "WHERE ID = ?");
+	    
+	            try (statement) {
+	            	statement.setString(1, nombre);
+	            	statement.setString(2, apellido);
+	            	statement.setObject(3, fechaNacimiento);
+	            	statement.setString(4, nacionalidad);
+	            	statement.setString(5, telefono);
+	            	statement.setInt(6, id);
+	                statement.execute();
+	                
+	                int updateCount = statement.getUpdateCount();
+
+	                return updateCount;
+	               
+	            }
+		 }catch (SQLException e) {
+	            throw new RuntimeException(e);
+		 }
+		}
 
 }

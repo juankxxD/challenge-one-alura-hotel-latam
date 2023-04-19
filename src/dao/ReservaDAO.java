@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import model.Reserva;
@@ -109,4 +110,50 @@ public class ReservaDAO {
 		 }
 		 return reserva;
 	 }
+	 
+	 public int delete(int id ) {
+		 try {
+	            final PreparedStatement statement = con
+	                    .prepareStatement("DELETE FROM RESERVAS WHERE ID = ?");
+	    
+	            try (statement) {
+	            	statement.setInt(1, id);
+	                statement.execute();
+	                
+	                int updateCount = statement.getUpdateCount();
+
+	                return updateCount;
+	               
+	            }
+		 }catch (SQLException e) {
+	            throw new RuntimeException(e);
+		 }
+	 }
+
+	public int update(Integer id, Date checkin, Date checkout, double valor) {
+		
+		try {
+            final PreparedStatement statement = con
+                    .prepareStatement("UPDATE RESERVAS SET "
+                    		+ "fechaEntrada = ?, "
+                    		+ "fechaSalida = ?, "
+                    		+ "valor = ? "
+                    		+ "WHERE ID = ?");
+    
+            try (statement) {
+            	statement.setObject(1, checkin);
+            	statement.setObject(2, checkout);
+            	statement.setDouble(3, valor);
+            	statement.setInt(4, id);
+                statement.execute();
+                
+                int updateCount = statement.getUpdateCount();
+
+                return updateCount;
+               
+            }
+	 }catch (SQLException e) {
+            throw new RuntimeException(e);
+	 }
+	}
 }

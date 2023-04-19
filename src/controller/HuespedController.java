@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.Date;
 import java.util.List;
 
 import dao.HuespedDAO;
@@ -24,5 +25,18 @@ private HuespedDAO huespedDao;
 	
 	public List<Huesped> listarHuespedByCondition(String condition) {
 		return huespedDao.getHuespedByCondition(condition);
+	}
+	
+	public int delete(int id) {
+		return huespedDao.delete(id);
+	}
+	
+	public int deleteByReserva(int idReserva) {
+		return huespedDao.deleteByReserva(idReserva);
+	}
+
+	public int update(Integer id, String nombre, String apellido, Date fechaNacimiento, String nacionalidad,
+			String telefono) {
+		return huespedDao.update(id, nombre, apellido, fechaNacimiento, nacionalidad, telefono);
 	}
 }
