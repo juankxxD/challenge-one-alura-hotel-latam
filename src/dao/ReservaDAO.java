@@ -56,7 +56,9 @@ public class ReservaDAO {
 		 List<Reserva> resultado =  new ArrayList<>();
 		 try {
 	            final PreparedStatement statement = con
-	                    .prepareStatement("SELECT ID, fechaEntrada, fechaSalida, valor, formaPago FROM RESERVAS");
+	                    .prepareStatement("SELECT R.id, R.fechaEntrada, R.fechaSalida, R.valor, "
+	                    		+ "M.id AS idMethod, M.nombre FROM RESERVAS R INNER JOIN METHOD_PAYMENT M "
+	                    		+ "ON R.formaPago = M.id ");
 	    
 	            try (statement) {
 	                statement.execute();
@@ -66,11 +68,13 @@ public class ReservaDAO {
 	                try (resultSet) {
 	                    while (resultSet.next()) {
 	                    	resultado.add(new Reserva(
-	                    			resultSet.getInt("ID"),
+	                    			resultSet.getInt("id"),
 	                    			resultSet.getDate("fechaEntrada"),
 	                    			resultSet.getDate("fechaSalida"),
 	                    			resultSet.getDouble("valor"),
-	                    			new TypePayment(resultSet.getString("formaPago"))));
+	                    			new TypePayment(
+	                    					resultSet.getInt("idMethod"),
+	                    					resultSet.getString("nombre"))));
 	                    }
 	                }
 	            }

@@ -90,8 +90,11 @@ public class HuespedDAO {
 				 System.out.println(condition);
 				 final PreparedStatement statement = con
 		                    .prepareStatement("SELECT H.ID, H.nombre, H.apellido, H.fechaNacimiento, H.nacionalidad, H.telefono, H.idReserva, "
-		                    		+ " R.fechaEntrada, R.fechaSalida, R.valor, R.formaPago FROM HUESPEDES H INNER JOIN RESERVAS R "
-		                    		+ "ON H.idReserva = R.ID WHERE H.apellido = ? OR R.ID = ?");
+		                    		+ " R.fechaEntrada, R.fechaSalida, R.valor, R.formaPago, M.id as idMethod, M.nombre as nombreMethod "
+		                    		+ "FROM HUESPEDES H INNER JOIN RESERVAS R "
+		                    		+ "ON H.idReserva = R.ID INNER JOIN method_payment M "
+		                    		+ "ON R.formaPago = M.id "
+		                    		+ "WHERE H.apellido = ? OR R.ID = ?");
 				 	
 		            try (statement) {
 		            	statement.setString(1, condition);
@@ -117,7 +120,8 @@ public class HuespedDAO {
 			            	                    	resultSet.getDate("fechaSalida"),
 			            	                    	resultSet.getDouble("valor"),
 			            	                    	new TypePayment(
-			            	                    			resultSet.getString("formaPago"))
+			            	                    			resultSet.getInt("idMethod"),
+			            	                    			resultSet.getString("nombreMethod"))
 			                    					)
 			                    			));
 			                    }

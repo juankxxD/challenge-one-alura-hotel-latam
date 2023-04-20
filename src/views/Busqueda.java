@@ -25,6 +25,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.awt.event.ActionEvent;
@@ -241,8 +242,10 @@ public class Busqueda extends JFrame {
 					clearTable(modelo);
 					clearTable(modeloHuesped);
 					List<Reserva> listReserva = new ArrayList<>();
-					listReserva.add(listHuesped.get(0).getReserva());
-					System.out.println(listHuesped.get(0).getReserva());
+					for (Huesped huesped : listHuesped) {
+						listReserva.add(huesped.getReserva());
+					}
+					System.out.println(listReserva);
 					fillTableReserva(listReserva, modelo);
 					fillTableHuesped(listHuesped, modeloHuesped);
 

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import com.toedter.calendar.JDateChooser;
 
+import controller.MethodPaymentController;
 import controller.ReservaController;
 import model.Reserva;
 import model.TypePayment;
@@ -21,6 +22,7 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.text.Format;
+import java.util.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -44,6 +46,7 @@ public class ReservasView extends JFrame {
 	private JLabel labelExit;
 	private JLabel labelAtras;
 	private ReservaController reservaController;
+	private MethodPaymentController methodPaymentController;
 	private final double VALORDIA = 3000; 
 	/**
 	 * Launch the application.
@@ -67,6 +70,7 @@ public class ReservasView extends JFrame {
 	public ReservasView() {
 		super("Reserva");
 		this.reservaController = new ReservaController();
+		this.methodPaymentController = new MethodPaymentController();
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 560);
@@ -298,8 +302,7 @@ public class ReservasView extends JFrame {
 		txtFormaPago.setBackground(SystemColor.text);
 		txtFormaPago.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
 		txtFormaPago.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtFormaPago.setModel(new DefaultComboBoxModel(new String[] 
-				{"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
+		fillSelect();
 		panel.add(txtFormaPago);
 
 		JPanel btnsiguiente = new JPanel();
@@ -307,7 +310,7 @@ public class ReservasView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {	
-					TypePayment typePayment = new TypePayment(txtFormaPago.getSelectedIndex(), txtFormaPago.getSelectedItem().toString());
+					TypePayment typePayment = new TypePayment(txtFormaPago.getSelectedIndex() + 1, txtFormaPago.getSelectedItem().toString());
 					Reserva reserva = new Reserva(ReservasView.txtFechaEntrada.getDate(), 
 							ReservasView.txtFechaSalida.getDate(),
 							Double.parseDouble(txtValor.getText().split(" ")[0]), typePayment);
@@ -348,5 +351,11 @@ public class ReservasView extends JFrame {
 	    		ReservasView.txtValor.setText(totalDias + " COP");
 	    		System.out.println(totalDias);
 	    	}
+	    }
+	    
+	    private void fillSelect() {
+	    	List<TypePayment> methodPayment = methodPaymentController.getMethodPayment();
+	    	methodPayment.forEach(method -> txtFormaPago.addItem(method.getNombre()));
+	 
 	    }
 }

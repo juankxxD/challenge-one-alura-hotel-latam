@@ -13,7 +13,7 @@ public class ReservaController {
 	private ReservaDAO reservaDao;
 	
 	public ReservaController() {
-        var factory = new ConnectionFactory();
+		ConnectionFactory factory = new ConnectionFactory();
         this.reservaDao = new ReservaDAO(factory.recuperaConexion());
     }
 	
