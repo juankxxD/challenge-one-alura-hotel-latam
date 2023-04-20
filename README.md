@@ -65,7 +65,11 @@ por defecto el nombre de usuario y contraseña es admin
 
 ## Aplicación
 
-Proximamente el demo de la app
+
+
+https://user-images.githubusercontent.com/43628180/233483960-0a2dcdc4-48f0-4930-b4b2-7bf9d8422856.mp4
+
+
 
 ###
 
@@ -93,7 +97,7 @@ Después de descargar el proyecto, puede abrirlo con `eclipse`. Para hacer esto,
 - `Busque la ubicación donde se encuentra el proyecto y seleccionelo En caso de haberlo descargado en formato zip es necesario extraerlo antes de buscarlo`
 
 - `Dar click derecho en el proyecto seleccionar la opcion de properties -> java build path -> dar doble click en cada una de las librerias para agregarlas, estan en la
-ubicacion (carpeta del proyecto -> JARS)
+ubicacion (carpeta del proyecto -> JARS)`
 
 - `Abrir cualquier la vista de MenuPrincipal y ejecutar`
 ---
